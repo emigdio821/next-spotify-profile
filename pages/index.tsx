@@ -1,56 +1,69 @@
-import {
-  Text,
-  Loader,
-  Title,
-  Center,
-  Container,
-  createStyles,
-} from '@mantine/core'
-import ThemeSwitcher from 'components/ThemeSwitcher'
+import { IconTool } from '@tabler/icons'
+import AppWrapper from 'components/AppWrapper'
+import { getSession, GetSessionParams } from 'next-auth/react'
+import { Text, Title, createStyles, Center, Image } from '@mantine/core'
 
 const useStyles = createStyles((theme) => ({
-  root: {
-    paddingTop: 80,
-    paddingBottom: 80,
-  },
-
   title: {
-    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-    textAlign: 'center',
+    fontSize: 32,
     fontWeight: 900,
-    fontSize: 38,
-
+    textAlign: 'center',
     [theme.fn.smallerThan('sm')]: {
-      fontSize: 32,
+      fontSize: 28,
     },
   },
 
-  description: {
-    maxWidth: 500,
-    margin: 'auto',
-    marginTop: theme.spacing.xl,
-    marginBottom: theme.spacing.xl * 1.5,
+  container: {
+    textAlign: 'center',
   },
 }))
 
-export default function NotFoundTitle() {
+interface Session {
+  user: {
+    name: string
+    email: string
+    image: string
+  }
+}
+
+export default function Home({ session }: { session: Session }) {
   const { classes } = useStyles()
+  const { user } = session || {}
 
   return (
-    <Container className={classes.root}>
-      <Center mb="lg">
-        <Loader />
-      </Center>
-      <ThemeSwitcher />
-      <Title className={classes.title}>Hi there</Title>
-      <Text
-        size="lg"
-        color="dimmed"
-        align="center"
-        className={classes.description}
-      >
-        This page is under construction
-      </Text>
-    </Container>
+    <AppWrapper>
+      <div className={classes.container}>
+        {user && (
+          <>
+            <Center>
+              <Image
+                mb={20}
+                width={200}
+                height={200}
+                radius={100}
+                alt="Spotify Logo"
+                src={user.image || 'https://picsum.photos/200'}
+              />
+            </Center>
+            <Title className={classes.title}>Hi, {user.name}</Title>
+            <Text mb={20}>{user.email}</Text>
+            <Text size="lg" align="center">
+              App is still under construction
+            </Text>
+            <IconTool stroke={1.5} />
+          </>
+        )}
+      </div>
+    </AppWrapper>
   )
+}
+
+export async function getServerSideProps(ctx: GetSessionParams) {
+  const session = await getSession(ctx)
+
+  return {
+    props: {
+      session,
+    },
+  }
 }

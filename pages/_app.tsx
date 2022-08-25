@@ -6,18 +6,18 @@ import {
 } from '@mantine/core'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
+import { SessionProvider } from 'next-auth/react'
 import { useHotkeys, useLocalStorage } from '@mantine/hooks'
 
 export default function App({ Component, pageProps }: AppProps) {
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
-    key: 'mantine-color-scheme',
     defaultValue: 'dark',
+    key: 'mantine-color-scheme',
     getInitialValueInEffect: true,
   })
 
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
-
   useHotkeys([['mod+J', () => toggleColorScheme()]])
 
   return (
@@ -31,18 +31,20 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="description" content="Your Spotify Profile" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
-        <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
-          theme={{ colorScheme }}
+      <SessionProvider session={pageProps.session}>
+        <ColorSchemeProvider
+          colorScheme={colorScheme}
+          toggleColorScheme={toggleColorScheme}
         >
-          <Component {...pageProps} />
-        </MantineProvider>
-      </ColorSchemeProvider>
+          <MantineProvider
+            withGlobalStyles
+            withNormalizeCSS
+            theme={{ colorScheme }}
+          >
+            <Component {...pageProps} />
+          </MantineProvider>
+        </ColorSchemeProvider>
+      </SessionProvider>
     </>
   )
 }
