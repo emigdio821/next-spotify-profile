@@ -7,16 +7,22 @@ interface WrapperProps {
 
 const useStyles = createStyles((theme) => ({
   container: {
-    height: '100vh',
     display: 'flex',
     justifyContent: 'space-between',
+    [theme.fn.smallerThan('sm')]: {
+      flexDirection: 'column',
+    },
   },
 
   children: {
-    padding: theme.spacing.lg,
-    paddingLeft: theme.spacing.lg + 80,
+    margin: 0,
+    padding: 60,
+    width: '100%',
+    paddingLeft: 60 + 80,
     [theme.fn.smallerThan('sm')]: {
-      paddingLeft: theme.spacing.lg,
+      padding: 20,
+      paddingLeft: 20,
+      paddingBottom: 20 + 80,
     },
   },
 }))
@@ -27,7 +33,9 @@ export default function AppWrapper({ children }: WrapperProps) {
   return (
     <div className={classes.container}>
       <Navbar />
-      <Container className={classes.children}>{children}</Container>
+      <Container fluid className={classes.children}>
+        {children}
+      </Container>
     </div>
   )
 }
