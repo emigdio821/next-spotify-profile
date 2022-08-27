@@ -18,8 +18,10 @@ export default function useFollowers() {
 
   const getUserInfoData = useCallback(async () => {
     const response = await getUserInfo()
-    const res = await response.json()
-    setData(res)
+    if (response.ok) {
+      const res = await response.json()
+      setData(res)
+    }
   }, [])
 
   useEffect(() => {

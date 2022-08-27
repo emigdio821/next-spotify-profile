@@ -64,7 +64,7 @@ function UserInfoItem({ title, subtitle }: UserInfoItemProps) {
   return (
     <Stack spacing={0}>
       {!subtitle ? (
-        <Center mb={8}>
+        <Center m={12}>
           <Loader />
         </Center>
       ) : (
@@ -116,7 +116,9 @@ export default function Home({ session }: { session: ISession }) {
                 </Title>
                 <Center>
                   {!userInfo ? (
-                    <Loader />
+                    <Box>
+                      <Loader />
+                    </Box>
                   ) : (
                     <Group spacing={2} align="center">
                       {isPremium ? (
