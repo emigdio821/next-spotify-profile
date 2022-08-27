@@ -1,4 +1,7 @@
 export interface ISession {
+  accessToken: string
+  refreshToken: string
+  username: string
   user: {
     name: string
     email: string

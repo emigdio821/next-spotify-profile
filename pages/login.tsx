@@ -8,6 +8,7 @@ import {
   createStyles,
 } from '@mantine/core'
 import { ISession } from 'types'
+import Helmet from 'components/Helmet'
 import { NextLink } from '@mantine/next'
 import { signIn, getSession, GetSessionParams } from 'next-auth/react'
 
@@ -25,6 +26,7 @@ export default function Login({ session }: { session: ISession }) {
 
   return (
     <Center>
+      <Helmet title="Login" />
       <Card withBorder p="xl" radius="md" m="lg" className={classes.card}>
         <Center>
           <Stack align="center" spacing={10}>

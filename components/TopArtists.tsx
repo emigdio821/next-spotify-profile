@@ -1,10 +1,12 @@
+import useSWR from 'swr'
 import { IArtist } from 'types'
-import { useGetTopArtists } from 'hooks'
+import spotiFetcher from 'lib/spotify'
+import { topArtistsEP } from 'endpoints'
 import { Box, Title, Text, Group, Image, Stack, Button } from '@mantine/core'
 import Loader from './Loader'
 
-export default function TopArtists() {
-  const topArtists = useGetTopArtists()
+export default function TopArtists({ accessToken }: { accessToken: string }) {
+  const { data: topArtists } = useSWR([topArtistsEP, accessToken], spotiFetcher)
   const { items: artists } = topArtists || {}
 
   return (

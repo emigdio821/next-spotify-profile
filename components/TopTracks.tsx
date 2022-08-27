@@ -1,10 +1,12 @@
+import useSWR from 'swr'
 import { ITrack } from 'types'
-import { useTopTracks } from 'hooks'
+import spotiFetcher from 'lib/spotify'
+import { topTracksEP } from 'endpoints'
 import { Box, Title, Text, Group, Image, Stack, Button } from '@mantine/core'
 import Loader from './Loader'
 
-export default function TopTracks() {
-  const topTracks = useTopTracks()
+export default function TopTracks({ accessToken }: { accessToken: string }) {
+  const { data: topTracks } = useSWR([topTracksEP, accessToken], spotiFetcher)
   const { items: tracks } = topTracks || {}
 
   return (

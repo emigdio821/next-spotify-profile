@@ -1,10 +1,14 @@
 import { Title } from '@mantine/core'
+import Helmet from 'components/Helmet'
 import AppWrapper from 'components/AppWrapper'
 
 export default function Playlists() {
   return (
-    <AppWrapper>
-      <Title>Playlists</Title>
-    </AppWrapper>
+    <>
+      <Helmet title="Playlists" />
+      <AppWrapper>
+        <Title>Playlists</Title>
+      </AppWrapper>
+    </>
   )
 }

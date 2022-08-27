@@ -9,14 +9,17 @@ import {
   Center,
   createStyles,
 } from '@mantine/core'
+import useSWR from 'swr'
 import { ISession } from 'types'
 import Loader from 'components/Loader'
+import spotiFetcher from 'lib/spotify'
+import Helmet from 'components/Helmet'
+import TopTracks from 'components/TopTracks'
 import AppWrapper from 'components/AppWrapper'
 import TopArtists from 'components/TopArtists'
-import { useFollowers, usePlaylists, useUserInfo } from 'hooks'
 import { IconLogout, IconBolt, IconBoltOff } from '@tabler/icons'
 import { signOut, getSession, GetSessionParams } from 'next-auth/react'
-import TopTracks from 'components/TopTracks'
+import { followersEP, playlistsEP, userInfoEP } from 'endpoints'
 
 const useStyles = createStyles((theme) => ({
   title: {
@@ -80,23 +83,18 @@ function UserInfoItem({ title, subtitle }: UserInfoItemProps) {
 }
 
 export default function Home({ session }: { session: ISession }) {
+  const { accessToken } = session
   const { classes } = useStyles()
   const { user } = session || {}
-  // const nowPlaying = useNowPlaying()
-  const following = useFollowers()
-  const playlists = usePlaylists()
-  const userInfo = useUserInfo()
-  // const topArtists = useGetTopArtists()
+  const { data: following } = useSWR([followersEP, accessToken], spotiFetcher)
+  const { data: playlists } = useSWR([playlistsEP, accessToken], spotiFetcher)
+  const { data: userInfo } = useSWR([userInfoEP, accessToken], spotiFetcher)
   const isPremium = userInfo?.product === 'premium'
-  // console.log(following)
-  // console.log(playlists)
-  // console.log(nowPlaying)
-  // console.log(userInfo)
-  // console.log(topArtists)
 
   return (
     <AppWrapper>
       <>
+        <Helmet />
         <Box className={classes.container}>
           {user && (
             <>
@@ -163,8 +161,8 @@ export default function Home({ session }: { session: ISession }) {
           )}
         </Box>
         <Box className={classes.midContainer}>
-          <TopArtists />
-          <TopTracks />
+          <TopArtists accessToken={accessToken} />
+          <TopTracks accessToken={accessToken} />
         </Box>
       </>
     </AppWrapper>

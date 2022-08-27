@@ -2,12 +2,12 @@ import { Title } from '@mantine/core'
 import Helmet from 'components/Helmet'
 import AppWrapper from 'components/AppWrapper'
 
-export default function Recent() {
+export default function TopArtists() {
   return (
     <>
-      <Helmet title="Recent Activity" />
+      <Helmet title="Top Artists" />
       <AppWrapper>
-        <Title>Recent Activity</Title>
+        <Title>Top Artists</Title>
       </AppWrapper>
     </>
   )
