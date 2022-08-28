@@ -15,19 +15,23 @@ import { NextLink } from '@mantine/next'
 import { spotiFetcher } from 'lib/spotify'
 import Loader from './Loader'
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   artistContainer: {
     cursor: 'pointer',
     img: {
       transition: 'filter 0.3s ease',
     },
-    transition: 'all 0.3s ease',
+    '& .artistName': {
+      transition: 'all 0.3s ease',
+    },
     '&:hover': {
-      opacity: 0.7,
-      img: {
-        filter: 'brightness(0.8)',
+      '& .artistName': {
+        opacity: 0.7,
+        transform: 'translateX(1px)',
       },
-      borderRadius: theme.spacing.lg,
+      img: {
+        filter: 'brightness(0.6)',
+      },
     },
   },
 }))
@@ -47,7 +51,7 @@ export default function TopArtistsList({
   return (
     <Box>
       <Group mb="md" style={{ justifyContent: 'space-between' }}>
-        <Title order={2}>Top Artists</Title>
+        <Title order={2}>Top Artists of All Time</Title>
         <Button
           passHref
           radius="xl"
@@ -73,7 +77,9 @@ export default function TopArtistsList({
                   radius="lg"
                   alt="Artist Image"
                 />
-                <Text weight={500}>{name}</Text>
+                <Text weight={500} className="artistName">
+                  {name}
+                </Text>
               </Group>
             )
           })}

@@ -1,4 +1,4 @@
-import { ITopArtistsEP } from 'types'
+import { ILimitTermEP } from 'types'
 
 export const nowPlayingEP =
   'https://api.spotify.com/v1/me/player/currently-playing'
@@ -13,8 +13,8 @@ export const userInfoEP = 'https://api.spotify.com/v1/me'
 export const topArtistsEP = ({
   limit = 50,
   term = 'long_term',
-}: ITopArtistsEP) =>
+}: ILimitTermEP) =>
   `https://api.spotify.com/v1/me/top/artists?limit=${limit}&time_range=${term}`
 
-export const topTracksEP = (limit = 50) =>
-  `https://api.spotify.com/v1/me/top/tracks?limit=${limit}&time_range=long_term`
+export const topTracksEP = ({ limit = 50, term = 'long_term' }: ILimitTermEP) =>
+  `https://api.spotify.com/v1/me/top/tracks?limit=${limit}&time_range=${term}`

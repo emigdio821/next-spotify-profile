@@ -91,7 +91,7 @@ export default function TopArtists({ session }: { session: ISession }) {
               <>
                 {artists.map((artist: IArtist) => {
                   const { id, images, name } = artist
-                  const imgSrc = images[0].url || ''
+                  const imgSrc = images[0].url || 'https://picsum.photos/200'
 
                   return (
                     <Stack
@@ -106,7 +106,9 @@ export default function TopArtists({ session }: { session: ISession }) {
                         height={164}
                         alt="Artist Image"
                       />
-                      <Text weight={500}>{name}</Text>
+                      <Text weight={500} size="lg">
+                        {name}
+                      </Text>
                     </Stack>
                   )
                 })}

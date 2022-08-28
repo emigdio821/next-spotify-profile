@@ -25,9 +25,6 @@ const useStyles = createStyles((theme) => ({
   title: {
     color: theme.colorScheme === 'dark' ? theme.white : theme.black,
     textAlign: 'center',
-    [theme.fn.smallerThan('sm')]: {
-      fontSize: 30,
-    },
   },
 
   container: {

@@ -62,7 +62,7 @@ export interface IArtistData {
 }
 
 export type ITerm = 'short_term' | 'medium_term' | 'long_term' | undefined
-export interface ITopArtistsEP {
+export interface ILimitTermEP {
   limit?: number
   term?: ITerm
 }

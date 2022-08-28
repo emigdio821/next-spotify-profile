@@ -15,20 +15,24 @@ import { spotiFetcher } from 'lib/spotify'
 import { topTracksEP } from 'endpoints'
 import Loader from './Loader'
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(() => ({
   trackContainer: {
     cursor: 'pointer',
     img: {
       transition: 'filter 0.3s ease',
     },
-    transition: 'all 0.3s ease',
+    '& .trackDetails, & .trackTime': {
+      transition: 'all 0.3s ease',
+    },
     justifyContent: 'space-between',
     '&:hover': {
-      opacity: 0.7,
-      img: {
-        filter: 'brightness(0.8)',
+      '& .trackDetails, & .trackTime': {
+        opacity: 0.7,
+        transform: 'translateX(1px)',
       },
-      borderRadius: theme.spacing.lg,
+      img: {
+        filter: 'brightness(0.6)',
+      },
     },
   },
 }))
@@ -40,7 +44,7 @@ export default function TopTracksList({
 }) {
   const { classes } = useStyles()
   const { data: topTracks } = useSWR(
-    [topTracksEP(20), accessToken],
+    [topTracksEP({ limit: 20 }), accessToken],
     spotiFetcher,
   )
   const { items: tracks } = topTracks || {}
@@ -48,7 +52,7 @@ export default function TopTracksList({
   return (
     <Box mb="md">
       <Group mb="md" style={{ justifyContent: 'space-between' }}>
-        <Title order={2}>Top Tracks</Title>
+        <Title order={2}>Top Tracks of All Time</Title>
         <Button radius="xl" variant="default">
           See more
         </Button>
@@ -71,7 +75,7 @@ export default function TopTracksList({
                     radius="lg"
                     alt="Artist Image"
                   />
-                  <Stack spacing={0}>
+                  <Stack spacing={0} className="trackDetails">
                     <Text weight={500} lineClamp={1}>
                       {name}
                     </Text>
@@ -83,7 +87,9 @@ export default function TopTracksList({
                     </Text>
                   </Stack>
                 </Group>
-                <Text size="sm">{msToTime(duration)}</Text>
+                <Text size="sm" className="trackTime">
+                  {msToTime(duration)}
+                </Text>
               </Group>
             )
           })}
