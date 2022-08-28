@@ -12,11 +12,11 @@ import {
 import useSWR from 'swr'
 import { ISession } from 'types'
 import Loader from 'components/Loader'
-import spotiFetcher from 'lib/spotify'
 import Helmet from 'components/Helmet'
-import TopTracks from 'components/TopTracks'
+import { spotiFetcher } from 'lib/spotify'
 import AppWrapper from 'components/AppWrapper'
-import TopArtists from 'components/TopArtists'
+import TopTracksList from 'components/TopTracksList'
+import TopArtistsList from 'components/TopArtistsList'
 import { IconLogout, IconBolt, IconBoltOff } from '@tabler/icons'
 import { signOut, getSession, GetSessionParams } from 'next-auth/react'
 import { followersEP, playlistsEP, userInfoEP } from 'endpoints'
@@ -67,9 +67,9 @@ function UserInfoItem({ title, subtitle }: UserInfoItemProps) {
   return (
     <Stack spacing={0}>
       {!subtitle ? (
-        <Center m={12}>
+        <Box m={3}>
           <Loader />
-        </Center>
+        </Box>
       ) : (
         <Title color="green" order={3}>
           {subtitle}
@@ -143,7 +143,7 @@ export default function Home({ session }: { session: ISession }) {
                   />
                   <UserInfoItem
                     title="Playlists"
-                    subtitle={playlists?.total.toString()}
+                    subtitle={playlists?.total?.toString()}
                   />
                 </Group>
               </Center>
@@ -161,8 +161,8 @@ export default function Home({ session }: { session: ISession }) {
           )}
         </Box>
         <Box className={classes.midContainer}>
-          <TopArtists accessToken={accessToken} />
-          <TopTracks accessToken={accessToken} />
+          <TopArtistsList accessToken={accessToken} />
+          <TopTracksList accessToken={accessToken} />
         </Box>
       </>
     </AppWrapper>

@@ -60,3 +60,9 @@ export interface IArtistData {
   next: string | null
   previous: string | null
 }
+
+export type ITerm = 'short_term' | 'medium_term' | 'long_term' | undefined
+export interface ITopArtistsEP {
+  limit?: number
+  term?: ITerm
+}

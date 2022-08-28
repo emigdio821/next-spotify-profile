@@ -41,6 +41,14 @@ const useStyles = createStyles((theme) => {
       },
     },
 
+    navBtnSection: {
+      [theme.fn.smallerThan('sm')]: {
+        display: 'flex',
+        alignItems: 'center',
+        alignContent: 'center',
+      },
+    },
+
     spotiLogo: {
       cursor: 'pointer',
       transition: 'transform 0.3s ease',
@@ -76,7 +84,7 @@ export default function MantineNavbar() {
           />
         </NextLink>
       </Center>
-      <Navbar.Section>
+      <Navbar.Section className={classes.navBtnSection}>
         <Stack justify="center" spacing={10} className={classes.stack}>
           {linkBtns.map((link) => (
             <NavbarLink
@@ -89,7 +97,7 @@ export default function MantineNavbar() {
           ))}
         </Stack>
       </Navbar.Section>
-      <Navbar.Section>
+      <Navbar.Section className={classes.navBtnSection}>
         <a
           target="_blank"
           rel="noreferrer"

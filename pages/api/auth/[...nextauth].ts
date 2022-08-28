@@ -1,4 +1,5 @@
 import NextAuth from 'next-auth'
+import { getAccessToken } from 'lib/spotify'
 import SpotifyProvider from 'next-auth/providers/spotify'
 
 const scopes = [
@@ -47,10 +48,24 @@ export default NextAuth({
           accessToken: account.access_token,
           refreshToken: account.refresh_token,
           userId: account.providerAccountId,
+          accessTokenExpiration: account.expires_at,
         }
       }
 
-      return token
+      const tokenExp = token.accessTokenExpiration as number
+
+      if (Date.now() < tokenExp * 1000) return token
+
+      const res = await getAccessToken(token.refreshToken as string)
+
+      if (res.error) {
+        return token
+      }
+
+      return {
+        ...token,
+        accessToken: res.access_token,
+      }
     },
     async session({ session, token }) {
       const theSession = session

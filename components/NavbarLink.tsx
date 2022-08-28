@@ -14,6 +14,9 @@ const useStyles = createStyles((theme) => {
       justifyContent: 'center',
       borderRadius: theme.radius.md,
       color: isDark ? theme.colors.dark[2] : theme.colors.dark[4],
+      [theme.fn.smallerThan('sm')]: {
+        padding: 6,
+      },
 
       '&:hover': {
         backgroundColor: isDark ? theme.colors.dark[5] : theme.colors.gray[2],

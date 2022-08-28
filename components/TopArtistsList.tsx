@@ -1,19 +1,33 @@
 import useSWR from 'swr'
 import { IArtist } from 'types'
-import spotiFetcher from 'lib/spotify'
 import { topArtistsEP } from 'endpoints'
+import { NextLink } from '@mantine/next'
+import { spotiFetcher } from 'lib/spotify'
 import { Box, Title, Text, Group, Image, Stack, Button } from '@mantine/core'
 import Loader from './Loader'
 
-export default function TopArtists({ accessToken }: { accessToken: string }) {
-  const { data: topArtists } = useSWR([topArtistsEP, accessToken], spotiFetcher)
+export default function TopArtistsList({
+  accessToken,
+}: {
+  accessToken: string
+}) {
+  const { data: topArtists } = useSWR(
+    [topArtistsEP({ limit: 20 }), accessToken],
+    spotiFetcher,
+  )
   const { items: artists } = topArtists || {}
 
   return (
     <Box>
       <Group mb="md" style={{ justifyContent: 'space-between' }}>
         <Title order={2}>Your Top Artists</Title>
-        <Button radius="xl" variant="default">
+        <Button
+          passHref
+          radius="xl"
+          variant="default"
+          href="/top-artists"
+          component={NextLink}
+        >
           See more
         </Button>
       </Group>

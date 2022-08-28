@@ -1,18 +1,25 @@
 import useSWR from 'swr'
 import { ITrack } from 'types'
-import spotiFetcher from 'lib/spotify'
+import { spotiFetcher } from 'lib/spotify'
 import { topTracksEP } from 'endpoints'
 import { Box, Title, Text, Group, Image, Stack, Button } from '@mantine/core'
 import Loader from './Loader'
 
-export default function TopTracks({ accessToken }: { accessToken: string }) {
-  const { data: topTracks } = useSWR([topTracksEP, accessToken], spotiFetcher)
+export default function TopTracksList({
+  accessToken,
+}: {
+  accessToken: string
+}) {
+  const { data: topTracks } = useSWR(
+    [topTracksEP(20), accessToken],
+    spotiFetcher,
+  )
   const { items: tracks } = topTracks || {}
 
   return (
     <Box mb="md">
       <Group mb="md" style={{ justifyContent: 'space-between' }}>
-        <Title order={2}>Your Top Artists</Title>
+        <Title order={2}>Your Top Tracks</Title>
         <Button radius="xl" variant="default">
           See more
         </Button>

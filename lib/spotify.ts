@@ -1,24 +1,26 @@
+import { tokenEP } from 'endpoints'
+
 // const refreshToken = process.env.SPOTIFY_REFRESH_TOKEN as string
-// const clientId = process.env.SPOTIFY_CLIENT_ID as string
-// const clientSecret = process.env.SPOTIFY_CLIENT_SECRET as string
+const clientId = process.env.SPOTIFY_CLIENT_ID as string
+const clientSecret = process.env.SPOTIFY_CLIENT_SECRET as string
 
-// const encodeStr = btoa(`${clientId}:${clientSecret}`)
+const encodeStr = btoa(`${clientId}:${clientSecret}`)
 
-// const getAccessToken = async () => {
-//   const response = await fetch(TOKEN_EP, {
-//     method: 'POST',
-//     headers: {
-//       Authorization: `Basic ${encodeStr}`,
-//       'Content-Type': 'application/x-www-form-urlencoded',
-//     },
-//     body: new URLSearchParams({
-//       grant_type: 'refresh_token',
-//       refresh_token: refreshToken,
-//     }),
-//   })
+export const getAccessToken = async (refreshToken: string) => {
+  const response = await fetch(tokenEP, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${encodeStr}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      grant_type: 'refresh_token',
+      refresh_token: refreshToken,
+    }),
+  })
 
-//   return response.json()
-// }
+  return response.json()
+}
 
 // export const getNowPlaying = async () => {
 //   const { access_token: accessToken } = await getAccessToken()
@@ -90,11 +92,9 @@
 //   })
 // }
 
-const spotiFetcher = (url: string, accessToken: string) =>
+export const spotiFetcher = (url: string, accessToken: string) =>
   fetch(url, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   }).then((res) => res.json())
-
-export default spotiFetcher
