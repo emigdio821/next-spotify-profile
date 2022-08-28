@@ -6,6 +6,7 @@ import {
 } from '@mantine/core'
 import { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
+import RouterTransition from 'components/RouterTransition'
 import { useHotkeys, useLocalStorage } from '@mantine/hooks'
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -33,6 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
             primaryColor: 'dark',
           }}
         >
+          <RouterTransition />
           <Component {...pageProps} />
         </MantineProvider>
       </ColorSchemeProvider>

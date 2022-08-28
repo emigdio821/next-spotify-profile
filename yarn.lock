@@ -251,6 +251,13 @@
     "@mantine/ssr" "5.2.3"
     "@mantine/styles" "5.2.3"
 
+"@mantine/nprogress@^5.2.4":
+  version "5.2.4"
+  resolved "https://registry.yarnpkg.com/@mantine/nprogress/-/nprogress-5.2.4.tgz#3497a9a3e647c6f9ab88384e684abe260d242b5e"
+  integrity sha512-7rW6Z5avh6lz59Z7HZ9PvA1P9ozId0fr6W51sXhniTJkAEyVjTWa7ySWjpaJVHxVYcdzkP4mI3Rqim6AcIPKAw==
+  dependencies:
+    "@mantine/utils" "5.2.4"
+
 "@mantine/ssr@5.2.3":
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/@mantine/ssr/-/ssr-5.2.3.tgz#17928a6b86dee1aeff017da66f159e4c83446c0e"
@@ -271,6 +278,11 @@
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.2.3.tgz#8be784d66c3e0cd9f72b6b9deed22a67fbeda35f"
   integrity sha512-5JOKj8UHaqZmJeciDWQXlbJCNYGKzUrKONMT1kmttbxB6PmGFN8Vy/kTQoSEe09g05S8E79/xLCYGGL8s1N5Yg==
+
+"@mantine/utils@5.2.4":
+  version "5.2.4"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.2.4.tgz#77e6f5073ab7f2b4b7727334be3698d8001091b4"
+  integrity sha512-U+3+OpGRb7GbmhLUZcWhGvZelaMJ42MW88bZXH3Cej5VpLRdx3UgLTP6EhbQBIFGTW7S53Xq7K7eCx2xdUFfhg==
 
 "@next/env@12.2.5":
   version "12.2.5"

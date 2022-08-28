@@ -1,15 +1,44 @@
+import {
+  Box,
+  Title,
+  Text,
+  Group,
+  Image,
+  Stack,
+  Button,
+  createStyles,
+} from '@mantine/core'
 import useSWR from 'swr'
 import { ITrack } from 'types'
+import { msToTime } from 'utils'
 import { spotiFetcher } from 'lib/spotify'
 import { topTracksEP } from 'endpoints'
-import { Box, Title, Text, Group, Image, Stack, Button } from '@mantine/core'
 import Loader from './Loader'
+
+const useStyles = createStyles((theme) => ({
+  trackContainer: {
+    cursor: 'pointer',
+    img: {
+      transition: 'filter 0.3s ease',
+    },
+    transition: 'all 0.3s ease',
+    justifyContent: 'space-between',
+    '&:hover': {
+      opacity: 0.7,
+      img: {
+        filter: 'brightness(0.8)',
+      },
+      borderRadius: theme.spacing.lg,
+    },
+  },
+}))
 
 export default function TopTracksList({
   accessToken,
 }: {
   accessToken: string
 }) {
+  const { classes } = useStyles()
   const { data: topTracks } = useSWR(
     [topTracksEP(20), accessToken],
     spotiFetcher,
@@ -19,7 +48,7 @@ export default function TopTracksList({
   return (
     <Box mb="md">
       <Group mb="md" style={{ justifyContent: 'space-between' }}>
-        <Title order={2}>Your Top Tracks</Title>
+        <Title order={2}>Top Tracks</Title>
         <Button radius="xl" variant="default">
           See more
         </Button>
@@ -27,25 +56,25 @@ export default function TopTracksList({
       {tracks ? (
         <Stack>
           {tracks.map((track: ITrack) => {
-            const { name, id, album, artists } = track
+            const { name, id, album, artists, duration_ms: duration } = track
             const { name: albumName, images } = album
             const img = images[0]?.url || 'https://picsum.photos/200'
             const artistNames = artists.map((artist) => artist.name)
 
             return (
-              <Group key={id} noWrap>
-                <Image
-                  src={img}
-                  width={80}
-                  height={80}
-                  radius="lg"
-                  alt="Artist Image"
-                />
-                <Stack spacing={0}>
-                  <Text weight={500} lineClamp={1}>
-                    {name}
-                  </Text>
+              <Group key={id} noWrap className={classes.trackContainer}>
+                <Group noWrap>
+                  <Image
+                    src={img}
+                    width={80}
+                    height={80}
+                    radius="lg"
+                    alt="Artist Image"
+                  />
                   <Stack spacing={0}>
+                    <Text weight={500} lineClamp={1}>
+                      {name}
+                    </Text>
                     <Text size="sm" lineClamp={2}>
                       {artistNames.join(', ')}
                     </Text>
@@ -53,7 +82,8 @@ export default function TopTracksList({
                       {albumName}
                     </Text>
                   </Stack>
-                </Stack>
+                </Group>
+                <Text size="sm">{msToTime(duration)}</Text>
               </Group>
             )
           })}

@@ -1,16 +1,43 @@
+import {
+  Box,
+  Title,
+  Text,
+  Group,
+  Image,
+  Stack,
+  Button,
+  createStyles,
+} from '@mantine/core'
 import useSWR from 'swr'
 import { IArtist } from 'types'
 import { topArtistsEP } from 'endpoints'
 import { NextLink } from '@mantine/next'
 import { spotiFetcher } from 'lib/spotify'
-import { Box, Title, Text, Group, Image, Stack, Button } from '@mantine/core'
 import Loader from './Loader'
+
+const useStyles = createStyles((theme) => ({
+  artistContainer: {
+    cursor: 'pointer',
+    img: {
+      transition: 'filter 0.3s ease',
+    },
+    transition: 'all 0.3s ease',
+    '&:hover': {
+      opacity: 0.7,
+      img: {
+        filter: 'brightness(0.8)',
+      },
+      borderRadius: theme.spacing.lg,
+    },
+  },
+}))
 
 export default function TopArtistsList({
   accessToken,
 }: {
   accessToken: string
 }) {
+  const { classes } = useStyles()
   const { data: topArtists } = useSWR(
     [topArtistsEP({ limit: 20 }), accessToken],
     spotiFetcher,
@@ -20,7 +47,7 @@ export default function TopArtistsList({
   return (
     <Box>
       <Group mb="md" style={{ justifyContent: 'space-between' }}>
-        <Title order={2}>Your Top Artists</Title>
+        <Title order={2}>Top Artists</Title>
         <Button
           passHref
           radius="xl"
@@ -38,7 +65,7 @@ export default function TopArtistsList({
             const img = images[0]?.url || 'https://picsum.photos/200'
 
             return (
-              <Group key={id}>
+              <Group key={id} className={classes.artistContainer}>
                 <Image
                   src={img}
                   width={80}
