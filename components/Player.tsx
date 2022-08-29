@@ -32,7 +32,7 @@ const useStyles = createStyles((theme) => ({
     right: 20,
     bottom: 20,
     maxWidth: 400,
-    borderRadius: 16,
+    borderRadius: 14,
     background:
       theme.colorScheme === 'dark'
         ? 'rgba(17, 17, 19, 0.9)'
@@ -50,6 +50,10 @@ const useStyles = createStyles((theme) => ({
 
   trackImg: {
     cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    '&:hover': {
+      filter: 'brightness(0.6)',
+    },
   },
 
   trackStack: {
@@ -64,8 +68,8 @@ export default function Player({ trackItem, refreshData }: IPlayerProps) {
   const { classes } = useStyles()
   const { item: track } = trackItem || {}
   const { album, name, artists } = track || {}
-  const img = album?.images[0]?.url || 'https://picsum.photos/200'
   const artistNames = artists?.map((artist) => artist.name)
+  const img = album?.images[0]?.url || 'https://picsum.photos/200'
 
   return (
     <Group className={classes.playingContainer} p="sm" spacing={12}>
