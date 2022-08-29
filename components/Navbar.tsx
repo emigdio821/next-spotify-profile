@@ -63,7 +63,7 @@ const linkBtns = [
   { icon: IconUser, label: 'Profile', pathname: '/' },
   { icon: IconMicrophone2, label: 'Top Artists', pathname: '/top-artists' },
   { icon: IconMusic, label: 'Top Tracks', pathname: '/top-tracks' },
-  { icon: IconHistory, label: 'Recent Activity', pathname: '/recent' },
+  { icon: IconHistory, label: 'Recent', pathname: '/recent' },
   { icon: IconPlaylist, label: 'Playlists', pathname: '/playlists' },
 ]
 

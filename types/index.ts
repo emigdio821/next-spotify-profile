@@ -66,3 +66,8 @@ export interface ILimitTermEP {
   limit?: number
   term?: ITerm
 }
+
+export interface IRPLayedItem {
+  played_at: string
+  track: ITrack
+}
