@@ -114,7 +114,9 @@ export default function TopArtists({ session }: { session: ISession }) {
                 })}
               </>
             ) : (
-              <Loader />
+              <Box>
+                <Loader />
+              </Box>
             )}
           </Box>
         </>

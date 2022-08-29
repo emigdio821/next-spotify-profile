@@ -71,3 +71,39 @@ export interface IRPLayedItem {
   played_at: string
   track: ITrack
 }
+
+export interface IPlaylist {
+  id: string
+  images: {
+    url: string
+    width: number
+    height: number
+  }[]
+  name: string
+  tracks: {
+    total: number
+  }
+  owner: {
+    display_name: string
+  }
+  collaborative: boolean
+}
+
+export interface INowPlayingTrack {
+  is_playing: boolean
+  item: {
+    id: string
+    name: string
+    artists: {
+      id: string
+      name: string
+    }[]
+    album: {
+      images: {
+        url: string
+        width: number
+        height: number
+      }[]
+    }
+  }
+}

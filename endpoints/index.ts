@@ -7,7 +7,7 @@ export const recentlyPlayedEP =
 export const tokenEP = 'https://accounts.spotify.com/api/token'
 export const followersEP =
   'https://api.spotify.com/v1/me/following?type=artist&limit=50'
-export const playlistsEP = 'https://api.spotify.com/v1/me/playlists'
+export const playlistsEP = 'https://api.spotify.com/v1/me/playlists?limit=50'
 export const userInfoEP = 'https://api.spotify.com/v1/me'
 
 export const topArtistsEP = ({
