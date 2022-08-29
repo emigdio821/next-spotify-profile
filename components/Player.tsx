@@ -44,6 +44,7 @@ const useStyles = createStyles((theme) => ({
       bottom: 80,
       width: '100%',
       right: 'unset',
+      maxWidth: 'unset',
       borderRadius: 'unset',
     },
   },

@@ -106,7 +106,7 @@ export default function TopArtists({ session }: { session: ISession }) {
                         height={164}
                         alt="Artist Image"
                       />
-                      <Text weight={500} size="lg">
+                      <Text weight={500} size="lg" align="center">
                         {name}
                       </Text>
                     </Stack>
