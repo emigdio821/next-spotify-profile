@@ -18,3 +18,6 @@ export const topArtistsEP = ({
 
 export const topTracksEP = ({ limit = 50, term = 'long_term' }: ILimitTermEP) =>
   `https://api.spotify.com/v1/me/top/tracks?limit=${limit}&time_range=${term}`
+
+export const artistByIdEP = (id: string) =>
+  `https://api.spotify.com/v1/artists/${id}`

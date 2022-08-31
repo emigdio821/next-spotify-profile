@@ -11,8 +11,9 @@ import {
 import useSWR from 'swr'
 import { ITrack } from 'types'
 import { msToTime } from 'utils'
-import { spotiFetcher } from 'lib/spotify'
 import { topTracksEP } from 'endpoints'
+import { NextLink } from '@mantine/next'
+import { spotiFetcher } from 'lib/spotify'
 import Loader from './Loader'
 
 const useStyles = createStyles(() => ({
@@ -53,7 +54,12 @@ export default function TopTracksList({
     <Box mb="md">
       <Group mb="md" style={{ justifyContent: 'space-between' }}>
         <Title order={2}>Top Tracks of All Time</Title>
-        <Button radius="xl" variant="default">
+        <Button
+          radius="xl"
+          variant="default"
+          href="/top-tracks"
+          component={NextLink}
+        >
           See more
         </Button>
       </Group>

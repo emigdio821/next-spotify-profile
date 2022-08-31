@@ -13,3 +13,10 @@ export function msToTime(ms?: number) {
     ? `${minutes + 1}:00`
     : `${minutes}:${padTo2Digits(seconds)}`
 }
+
+export function numberFormat(number: number) {
+  if (!number) return ''
+  const formatted = new Intl.NumberFormat('en-US').format(number)
+
+  return formatted
+}

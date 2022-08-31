@@ -9,6 +9,7 @@ import {
   createStyles,
 } from '@mantine/core'
 import useSWR from 'swr'
+import NLink from 'next/link'
 import { IArtist } from 'types'
 import { topArtistsEP } from 'endpoints'
 import { NextLink } from '@mantine/next'
@@ -69,18 +70,20 @@ export default function TopArtistsList({
             const img = images[0]?.url || 'https://picsum.photos/200'
 
             return (
-              <Group key={id} className={classes.artistContainer}>
-                <Image
-                  src={img}
-                  width={80}
-                  height={80}
-                  radius="lg"
-                  alt="Artist Image"
-                />
-                <Text weight={500} className="artistName">
-                  {name}
-                </Text>
-              </Group>
+              <NLink key={id} href={`/artist/${id}`}>
+                <Group className={classes.artistContainer}>
+                  <Image
+                    src={img}
+                    width={80}
+                    height={80}
+                    radius="lg"
+                    alt="Artist Image"
+                  />
+                  <Text weight={500} className="artistName">
+                    {name}
+                  </Text>
+                </Group>
+              </NLink>
             )
           })}
         </Stack>
